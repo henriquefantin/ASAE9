@@ -14,7 +14,9 @@ class VerificacaoAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-     if (!Auth::user()->admin()){
+    public function handle($request, Closure $next)
+    {
+     if(!Auth::user()->admin()){
             session([
                 'mensagem' => 'Você não tem permissão para isso'
             ]);

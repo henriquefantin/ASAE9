@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function(){
 	/* Produtos */
 	Route::get('/produto/adicionar', 'ProdutoController@adicionar')->name('produto_add');
 
-	Route::middleware(['auth'])->group(function(){
+	Route::middleware(['admin'])->group(function(){
 		/* Clientes */
 		Route::get('/cliente/cadastro', 'ClienteController@telaCadastro')->name('cliente_cadastro');
 		Route::get('/cliente/alterar/{id}', 'ClienteController@telaAlteracao')->name('cliente_update');
