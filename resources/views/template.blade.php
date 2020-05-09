@@ -9,7 +9,7 @@
   <div class="row">
     <nav class="navbar-expand-lg navbar navbar-dark bg-dark w-100">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <a class="navbar-brand" href="#">Olá, {{ session("nome")}}</a>
+          <a class="navbar-brand" href="#">Olá, {{ Auth::user()->name }}</a>
           <span class="navbar-toggler-icon"></span>
         </button>
       
@@ -39,6 +39,10 @@
         <!-- coluna vazia esquerda -->
       </div>
       <div class="col-md-10 mt-3">
+        @if (session()->has('mensagem'))
+          <div class="alert alert-danger">{{ session('mensagem') }}</div>
+          {{ session()->forget(['mensagem']) }}
+        @endif
         
         @yield('conteudo')
       </div>

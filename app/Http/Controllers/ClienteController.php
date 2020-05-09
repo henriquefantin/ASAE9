@@ -4,27 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
-
+use Auth;
 class ClienteController extends Controller
 {
      function telaCadastro(){
-         if(session()->has("login")){
+        
     	return view("cadastro_clientes");
-        }
-        return redirect()->route('tela_login');
+        
     }
 
     function telaAlteracao($id){
-         if(session()->has("login")){
+       
         $usuario = Usuario::find($id);
 
         return view("tela_alterar_cliente", [ "u" => $usuario ]);
-        }
-        return redirect()->route('tela_login');
+        
     }
 
     function alterar(Request $req, $id){
-        if(session()->has("login")){
+       
         $usuario = Usuario::find($id);
 
         $nome = $req->input('nome');
@@ -46,13 +44,18 @@ class ClienteController extends Controller
         }
 
         return view("retorno", [ "mensagem" => $msg]);
-        }
-        return redirect()->route('tela_login');
+        
     }
 
     function excluir($id){
-        if(session()->has("login")){
+        
+        
+
         $usuario = Usuario::find($id);
+
+        foreach ($usuario->vendas as $v){
+            $v->delete();
+        }
 
         if ($usuario->delete()){
             $msg = "Cliente $id excluído com sucesso.";
@@ -61,12 +64,11 @@ class ClienteController extends Controller
         }
 
         return view("retorno", [ "mensagem" => $msg]);
-        }
-        return redirect()->route('tela_login');
+        
     }
 
     function adicionar(Request $req){
-        if(session()->has("login")){
+        
     	$nome = $req->input('nome');
     	$endereco = $req->input('endereco');
     	$cep = $req->input('cep');
@@ -87,17 +89,12 @@ class ClienteController extends Controller
     	}
 
     	return view("retorno", [ "mensagem" => $msg ]);
-        }
-        return redirect()->route('tela_login');
+        
     }
 
-    function listar(){    	
-        if(session()->has("login")){
+    function listar(){    
             $usuarios = Usuario::all();
-
             return view("lista", [ "us" => $usuarios ]);
-        }
-        return redirect()->route('tela_login');
     }
 }
  

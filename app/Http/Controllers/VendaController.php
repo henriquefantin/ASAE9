@@ -10,15 +10,14 @@ use App\Produto;
 class VendaController extends Controller
 {
     function telaCadastroVendas(){
-         if(session()->has("login")){
+        
             $usuarios = Usuario::all();
             return view("venda_cliente", ["usuarios" => $usuarios]);
-         }
-        return redirect()->route('tela_login');
+         
     }
 
     function adicionar(Request $req){
-         if(session()->has("login")){
+      
             $id_cliente = $req->input('id_cliente');
     	#$descricao = $req->input('descricao');
     	#$valor = $req->input('valor');
@@ -35,16 +34,14 @@ class VendaController extends Controller
 
         return redirect()->route('vendas_item_novo', ['id' => $venda->id]);
     	//return view("retorno_venda", [ "mensagem" => $msg ]);
-         }
-        return redirect()->route('tela_login');
+        
     }
 
     function listar(){
-        if(session()->has("login")){
+      
         	$vendas = Venda::all();
             return view('lista_vendas_geral', [ 'venda' => $vendas ]);
-        }
-        return redirect()->route('tela_login');
+      
     }
 
     function itensVenda($id){

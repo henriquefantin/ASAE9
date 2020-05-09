@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserLogin;
-
+use Auth;
 class AppController extends Controller
 {
     function tela_login(){
     	//Exibir tela de login
-    	return view('tela_login');
+    	return view('passwords/login');
     }
 
     function tela_cadastro(){
@@ -61,7 +61,7 @@ class AppController extends Controller
     }
 
     function logout(){
-        session()->forget(["login", "nome"]);
-        return redirect()->route('tela_login');
+       Auth::logout();
+        return redirect()->route('login');
     }
 }
